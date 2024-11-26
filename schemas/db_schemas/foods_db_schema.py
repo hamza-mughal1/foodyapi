@@ -9,7 +9,7 @@ class Foods(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, nullable=False)
-    price = Column(Float, nullable=False, unique=True)
+    price = Column(Float, nullable=False)
     created_at = Column(DateTime, server_default=func.now(), nullable=False)
 
     order_items = relationship("OrderItems", back_populates="food", cascade="all, delete-orphan")
