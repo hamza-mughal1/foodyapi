@@ -8,6 +8,10 @@ class EnvSetting(BaseSettings):
     db_password: str
     db_host: str = "localhost"
     db_port: int = 5432
+    secret: str
+    algorithm: str
+    access_token_expire_minutes: int
+    refresh_token_expire_minutes: int
 
     class Config:
         env_file = ".env"
