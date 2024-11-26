@@ -107,3 +107,31 @@ class Authentication:
 
         return payload
 
+    async def login(self, user_credentials, db, response: Response):
+        result = await db.execute(
+            select(users_db_schema.Users).where(
+                users_db_schema.Users.email == user_credentials.username
+            )
+        )
+        user = result.scalar_one_or_none()
+        if not user:
+            raise HTTPException(status_code=403, detail="Invalid Credentials")
+        if not verify_password(user_credentials.password, user.password):
+            raise HTTPException(status_code=403, detail="Invalid Credentials")
+
+        access_token = await self.create_token(
+            {"user_id": user.id, "user_name": user.username, "type": "access-token"}
+        )
+
+        response.set_cookie(
+            key="access_token",
+            value=f"Bearer {access_token}",
+            httponly=True,  # Prevent JavaScript access to the cookie
+            secure=True,  # Use Secure cookies (HTTPS only)
+            samesite="Lax",  # Prevent CSRF attacks
+            max_age=self.ACCESS_TOKEN_EXPIRE_MINUTES
+            * 60,  # Set cookie expiry in seconds
+            path="/"         ## for a specific path
+        )
+
+        return {"message": "Login successful"}
