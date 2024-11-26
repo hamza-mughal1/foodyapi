@@ -8,19 +8,27 @@ from handlers.authentication_handlers import router as authentication_router
 from handlers.foods_handler import router as foods_router
 from handlers.orders_handler import router as orders_router
 
-# create all tables and objects in the db if don't exist
-
-
+# create tables in the db if don't exist
 async def create_tables(engine: AsyncEngine):
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        
+async def drop_tables(engine: AsyncEngine):
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
 
 # create app
 app = FastAPI()
 
+# check for tables creation on the startup
 @app.on_event("startup")
 async def on_startup():
     await create_tables(engine)
+    
+@app.get("/drop-tables")
+async def drop_tables_route():
+    await drop_tables(engine)
+    return {"message": "tables has been dropped!"}
 
 # configure CORS middleware (allowed to everyone for now)
 origins = ["*"]
