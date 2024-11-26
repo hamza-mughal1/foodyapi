@@ -53,3 +53,20 @@ class Authentication:
             )
 
         return token
+
+    async def create_token(self, data: dict, refresh=False):
+        to_encode = data.copy()
+        if refresh:
+            expiration = datetime.now() + timedelta(
+                minutes=self.REFRESH_TOKEN_EXPIRE_MINUTES
+            )
+        else:
+            expiration = datetime.now() + timedelta(
+                minutes=self.ACCESS_TOKEN_EXPIRE_MINUTES
+            )
+        to_encode.update({"exp": round(expiration.timestamp())})
+        to_encode.update({"uuid": str(uuid.uuid4())})
+
+        ecoded_token = jwt.encode(to_encode, self.SECRET_KEY, algorithm=self.ALGORITHM)
+
+        return ecoded_token
