@@ -70,3 +70,40 @@ class Authentication:
         ecoded_token = jwt.encode(to_encode, self.SECRET_KEY, algorithm=self.ALGORITHM)
 
         return ecoded_token
+
+    async def verify_token(self, db: db_dependency, token: str = Depends(get_token)):
+        token = await token
+        try:
+            payload = jwt.decode(token, self.SECRET_KEY, algorithms=self.ALGORITHM)
+            user_id = payload.get("user_id")
+            user_name = payload.get("user_name")
+
+            if (user_id is None) or (user_name is None):
+                raise HTTPException(
+                    status_code=403,
+                    detail="token is invalid",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
+
+            result = await db.execute(
+                select(users_db_schema.Users).where(users_db_schema.Users.id == user_id)
+            )
+
+            if (user := result.scalar_one_or_none()) is None:
+                raise HTTPException(
+                    status_code=403,
+                    detail="Invalid token. (User not found)",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
+
+            payload.update({"user_name": user.username, "token": token})
+
+        except JWTError:
+            raise HTTPException(
+                status_code=403,
+                detail="token is invalid",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+
+        return payload
+
