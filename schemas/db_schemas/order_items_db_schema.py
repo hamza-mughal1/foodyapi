@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from engines.sql_engine import Base
 
 # Order Items Table
-class OrderItem(Base):
+class OrderItems(Base):
     __tablename__ = "order_items"
     
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
@@ -13,5 +13,5 @@ class OrderItem(Base):
     price = Column(Float, nullable=False)
     created_at = Column(DateTime, server_default=func.now(), nullable=False)
     
-    order = relationship("Order", back_populates="order_items")
-    food = relationship("Food", back_populates="order_items")
+    order = relationship("Orders", back_populates="order_items")
+    food = relationship("Foods", back_populates="order_items")

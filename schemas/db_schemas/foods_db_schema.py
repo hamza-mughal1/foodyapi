@@ -4,7 +4,7 @@ from engines.sql_engine import Base
 
 
 # Foods Table
-class Food(Base):
+class Foods(Base):
     __tablename__ = "foods"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
@@ -12,4 +12,4 @@ class Food(Base):
     price = Column(Float, nullable=False, unique=True)
     created_at = Column(DateTime, server_default=func.now(), nullable=False)
 
-    order_items = relationship("OrderItem", back_populates="food", cascade="all, delete-orphan")
+    order_items = relationship("OrderItems", back_populates="food", cascade="all, delete-orphan")
