@@ -3,6 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from engines.sql_engine import Base, engine
 from schemas.db_schemas import *
 from sqlalchemy.ext.asyncio import AsyncEngine
+from handlers.users_handler import router as users_router
+from handlers.authentication_handlers import router as authentication_router
+from handlers.foods_handler import router as foods_router
+from handlers.orders_handler import router as orders_router
 
 # create all tables and objects in the db if don't exist
 
@@ -28,6 +32,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(users_router)
+app.include_router(authentication_router)
+app.include_router(foods_router)
+app.include_router(orders_router)
+
 
 # home route
 @app.get("/")
