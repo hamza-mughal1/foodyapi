@@ -120,7 +120,7 @@ class Authentication:
             raise HTTPException(status_code=403, detail="Invalid Credentials")
 
         access_token = await self.create_token(
-            {"user_id": user.id, "user_name": user.username, "type": "access-token"}
+            {"user_id": user.id, "user_name": user.username, "type": "access-token", "role": user.user_role.value}
         )
 
         response.set_cookie(
