@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, DateTime, func
+from sqlalchemy import Column, Enum, Integer, String, DateTime, func
 from sqlalchemy.orm import relationship
 from engines.sql_engine import Base
+from schemas.db_schemas import db_enums
 
 # Users Table
 class Users(Base):
@@ -11,6 +12,8 @@ class Users(Base):
     username = Column(String, nullable=False, unique=True)
     email = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False, unique=True)
+    user_role = Column(Enum(db_enums.UserRole), nullable=False, server_default=db_enums.UserRole.user.value)
     created_at = Column(DateTime, server_default=func.now(), nullable=False)
     
-    orders = relationship("Orders", back_populates="user", cascade="all, delete-orphan")
+    orders = relationship("Orders", back_populates="users", cascade="all, delete-orphan")
+    restaurants = relationship("Restaurants", back_populates="users", cascade="all, delete-orphan")
