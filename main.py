@@ -4,9 +4,11 @@ from engines.sql_engine import Base, engine
 from schemas.db_schemas import *
 from sqlalchemy.ext.asyncio import AsyncEngine
 from handlers.users_handler import router as users_router
-from handlers.authentication_handlers import router as authentication_router
+from handlers.authentication_handler import router as authentication_router
 from handlers.foods_handler import router as foods_router
 from handlers.orders_handler import router as orders_router
+from handlers.vendors_handler import router as vendors_router
+from handlers.restaurant_handler import router as restaurants_router
 
 # create tables in the db if don't exist
 async def create_tables(engine: AsyncEngine):
@@ -45,6 +47,8 @@ app.include_router(users_router)
 app.include_router(authentication_router)
 app.include_router(foods_router)
 app.include_router(orders_router)
+app.include_router(vendors_router)
+app.include_router(restaurants_router)
 
 
 # home route
