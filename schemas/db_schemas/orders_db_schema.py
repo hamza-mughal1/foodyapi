@@ -11,5 +11,5 @@ class Orders(Base):
     price = Column(Float, nullable=False)
     created_at = Column(DateTime, server_default=func.now(), nullable=False)
     
-    user = relationship("Users", back_populates="orders")
-    order_items = relationship("OrderItems", back_populates="order", cascade="all, delete-orphan")
+    users = relationship("Users", back_populates="orders")
+    order_items = relationship("OrderItems", back_populates="orders", cascade="all, delete-orphan")

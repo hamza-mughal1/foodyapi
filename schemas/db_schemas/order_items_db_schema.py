@@ -13,5 +13,5 @@ class OrderItems(Base):
     price = Column(Float, nullable=False)
     created_at = Column(DateTime, server_default=func.now(), nullable=False)
     
-    order = relationship("Orders", back_populates="order_items")
-    food = relationship("Foods", back_populates="order_items")
+    orders = relationship("Orders", back_populates="order_items")
+    foods = relationship("Foods", back_populates="order_items")
