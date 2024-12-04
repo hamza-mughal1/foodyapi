@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from engines.sql_engine import Base, engine
+from middleware import AuthenticationMiddleware, FILE_PATH
 from sqlalchemy.ext.asyncio import AsyncEngine
 from handlers.users_handler import router as users_router
 from handlers.authentication_handler import router as authentication_router
@@ -51,6 +52,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(AuthenticationMiddleware)
 
 # home route
 @app.get("/")
