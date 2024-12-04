@@ -38,6 +38,10 @@ class Authentication:
 
         return ecoded_token
 
+    async def get_token(self, request: Request, db: db_dependency):
+        authorization = request.cookies.get("access_token")
+        token = authorization.split("Bearer ")[1]
+        payload = jwt.decode(token, self.SECRET_KEY, algorithms=self.ALGORITHM)
         return payload
 
     async def login(self, user_credentials, db: db_dependency, response: Response):
