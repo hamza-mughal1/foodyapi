@@ -8,7 +8,7 @@ authentication = Authentication()
 router = APIRouter(tags=["Authentication"])
 
 
-@router.post("/login")
+@router.post("/login/")
 async def login(
     db: db_dependency,
     response: Response,
