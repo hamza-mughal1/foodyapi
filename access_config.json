@@ -1,0 +1,44 @@
+{
+    "excluded_endpoints": [
+        "/login/",
+        "/users/"
+    ],
+    "routes": {
+        "/redoc": [
+            "all"
+        ],
+        "/openapi.json": [
+            "all"
+        ],
+        "/drop-tables": [
+            "all"
+        ],
+        "/login/": [
+            "all"
+        ],
+        "/users/": [
+            "all"
+        ],
+        "/foods/": [
+            "vendor"
+        ],
+        "/orders/": [
+            "all"
+        ],
+        "/": [
+            "all"
+        ],
+        "/restaurants/": [
+            "vendor"
+        ],
+        "/docs/oauth2-redirect": [
+            "all"
+        ],
+        "/vendors/": [
+            "user"
+        ],
+        "/docs": [
+            "all"
+        ]
+    }
+}
