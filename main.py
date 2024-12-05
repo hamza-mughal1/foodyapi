@@ -12,10 +12,10 @@ from handlers.restaurant_handler import router as restaurants_router
 from RBAC.create_RBAC_config import update_routes_json
 
 
-# create tables in the db if don't exist
-async def create_tables(engine: AsyncEngine):
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+# create tables in the db if don't exist (commented out because using alembic to manage DB migration)
+# async def create_tables(engine: AsyncEngine):
+#     async with engine.begin() as conn:
+#         await conn.run_sync(Base.metadata.create_all)
 
 
 # drop tables only for development
@@ -41,7 +41,7 @@ app.include_router(restaurants_router)
 async def on_startup():
     # update routes config file
     update_routes_json(app, file_path=FILE_PATH)
-    await create_tables(engine)
+    # await create_tables(engine) (commented out because using alembic to manage DB migration)
 
 
 # drop tables endpoint to drop all tables and data in db (only for development)
