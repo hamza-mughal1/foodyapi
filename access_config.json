@@ -1,7 +1,9 @@
 {
     "excluded_endpoints": [
         "/login/",
-        "/users/"
+        "/users/",
+        "/docs",
+        "/"
     ],
     "routes": {
         "/redoc": [
@@ -23,7 +25,7 @@
             "vendor"
         ],
         "/orders/": [
-            "all"
+            "user"
         ],
         "/": [
             "all"
