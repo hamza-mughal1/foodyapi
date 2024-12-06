@@ -4,8 +4,10 @@ from models.orders_model import OrderModel
 from utilities.dependencies import db_dependency, token_dependency
 from typing import List
 
+# router object to create routes 
 router = APIRouter(prefix="/orders", tags=["orders"])
 
+# order model class object to call it's functions
 order = OrderModel()
 
 

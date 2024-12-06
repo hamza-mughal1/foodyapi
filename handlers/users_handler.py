@@ -3,9 +3,10 @@ from schemas.pydantic_schemas import users_pydantic_schema as user_schema
 from models.users_model import UsersModel
 from utilities.dependencies import db_dependency, token_dependency
 
+# router object to create routes 
 router = APIRouter(prefix="/users", tags=["users"])
 
-
+# user model class object to call it's functions
 user = UsersModel()
 
 
