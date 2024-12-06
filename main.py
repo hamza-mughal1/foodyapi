@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from engines.sql_engine import Base, engine
 from middleware import AuthenticationMiddleware, FILE_PATH
 from sqlalchemy.ext.asyncio import AsyncEngine
 from handlers.users_handler import router as users_router
@@ -9,6 +8,7 @@ from handlers.foods_handler import router as foods_router
 from handlers.orders_handler import router as orders_router
 from handlers.vendors_handler import router as vendors_router
 from handlers.restaurant_handler import router as restaurants_router
+from engines.sql_engine import Base, engine
 from RBAC.create_RBAC_config import update_routes_json
 
 
