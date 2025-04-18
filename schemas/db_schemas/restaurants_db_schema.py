@@ -13,3 +13,4 @@ class Restaurants(Base):
     
     users = relationship("Users", back_populates="restaurants")
     foods = relationship("Foods", back_populates="restaurants", cascade="all, delete-orphan")
+    orders = relationship("Orders", back_populates="restaurants", cascade="all, delete-orphan")

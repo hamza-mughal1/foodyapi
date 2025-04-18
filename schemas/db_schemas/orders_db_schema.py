@@ -9,6 +9,7 @@ class Orders(Base):
     
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id"), nullable=False)
     price = Column(Float, nullable=False)
     order_status = Column(Enum(db_enums.OrderStatus), nullable=False, server_default=db_enums.OrderStatus.in_progress.value)
     acceptance_status = Column(Enum(db_enums.AcceptanceStatus), nullable=False, server_default=db_enums.AcceptanceStatus.pending.value)
@@ -16,3 +17,4 @@ class Orders(Base):
     
     users = relationship("Users", back_populates="orders")
     order_items = relationship("OrderItems", back_populates="orders", cascade="all, delete-orphan")
+    restaurants = relationship("Restaurants", back_populates="orders")

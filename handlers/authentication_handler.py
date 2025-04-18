@@ -16,3 +16,11 @@ async def login(
     user_credentials: OAuth2PasswordRequestForm = Depends(),
 ):
     return await authentication.login(user_credentials, db, response)
+
+@router.post("/refresh/")
+async def login(
+    db: db_dependency,
+    response: Response,
+    user_credentials: OAuth2PasswordRequestForm = Depends(),
+):
+    return await authentication.login(user_credentials, db, response)

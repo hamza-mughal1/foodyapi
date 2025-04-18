@@ -6,12 +6,16 @@
         "/"
     ],
     "routes": {
-        "/redoc": [
-            "all"
-        ],
-        "/openapi.json": [
-            "all"
-        ],
+        "/redoc": {
+            "GET": [
+                "all"
+            ]
+        },
+        "/openapi.json": {
+            "POST": [
+                "all"
+            ]
+        },
         "/drop-tables": [
             "all"
         ],
@@ -41,6 +45,9 @@
         ],
         "/docs": [
             "all"
+        ],
+        "/orders/pending-orders": [
+            "vendor"
         ]
     }
 }

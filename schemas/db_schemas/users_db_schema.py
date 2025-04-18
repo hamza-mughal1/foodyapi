@@ -17,3 +17,5 @@ class Users(Base):
     
     orders = relationship("Orders", back_populates="users", cascade="all, delete-orphan")
     restaurants = relationship("Restaurants", back_populates="users", cascade="all, delete-orphan")
+    access_tokens = relationship("AccessTokens", back_populates="users", cascade="all, delete-orphan")
+    refresh_tokens = relationship("RefreshTokens", back_populates="users", cascade="all, delete-orphan")
